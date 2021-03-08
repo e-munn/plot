@@ -97,6 +97,7 @@ const App = () => {
                  <Route path={ '/' + d.path}>
                    <PageMaster
                      recipe={d}
+                     aWidth={aWidth}
                    />
                  </Route>
                  ))
