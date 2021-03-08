@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+/* src/App.js */
+import React, { useEffect, useState } from 'react'
+import { createTodo } from './graphql/mutations'
+import { listTodos } from './graphql/queries'
+import awsExports from "./aws-exports";
+// import { withAuthenticator } from '@aws-amplify/ui-react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import Amplify, { DataStore, Predicates, API, graphqlOperation } from "aws-amplify";
+import { RECIPE } from "./models";
+
+//Use next two lines only if syncing with the cloud
+import awsconfig from "./aws-exports";
+Amplify.configure(awsconfig);
+
+function onCreate() {
+  DataStore.save(
+    new RECIPE({
+      recipe:'mic check'
+    })
   );
 }
 
-export default App;
+async function onQuery() {
+  const posts = await DataStore.query(RECIPE, (c) => c);
+
+  console.log(posts);
+}
+
+const App = () => {
+
+
+  return (
+    <div>
+       <input type="button" value="NEW" onClick={onCreate} />
+       <input type="button" value="QUERY" onClick={onQuery} />
+     </div>
+  )
+}
+
+
+export default App

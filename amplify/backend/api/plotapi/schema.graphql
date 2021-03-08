@@ -1,0 +1,4 @@
+type RECIPE @model {
+  id: ID!
+  recipe: String!
+}
