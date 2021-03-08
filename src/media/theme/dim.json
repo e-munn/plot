@@ -1,0 +1,44 @@
+{
+  "m": {
+    "cutoff":500,
+    "serveHeight":40,
+    "margin":{
+      "left": 25
+    }
+  },
+  "v": {
+    "font":{
+      "size":16,
+      "spacing": 0
+    },
+    "marginBottom": 10,
+    "padding1": 20,
+    "padding2": 8,
+    "shove": 170,
+    "gap": 120,
+    "s": {
+      "width":15,
+      "stroke":1.5
+    }
+  },
+  "i": {
+    "font":{
+      "size":15,
+      "amountSize":13,
+      "detailSize":14
+    },
+    "height":22,
+    "radius":3
+  },
+  "a": {
+    "font":{
+      "size":15
+    },
+    "width":8,
+    "height":35,
+    "amtScale":8
+  },
+  "p": {
+    "d":28
+  }
+}
