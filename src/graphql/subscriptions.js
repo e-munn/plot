@@ -6,6 +6,9 @@ export const onCreateRecipe = /* GraphQL */ `
     onCreateRECIPE {
       id
       recipe
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -16,6 +19,9 @@ export const onUpdateRecipe = /* GraphQL */ `
     onUpdateRECIPE {
       id
       recipe
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -26,6 +32,9 @@ export const onDeleteRecipe = /* GraphQL */ `
     onDeleteRECIPE {
       id
       recipe
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
