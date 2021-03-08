@@ -26,11 +26,15 @@ Amplify.configure(awsconfig);
 
 
 function onCreate() {
-  DataStore.save(
-    new RECIPE({
-      recipe: JSON.stringify(recipe_master[3])
-    })
-  );
+
+  for (const i in recipe_master){
+    DataStore.save(
+      new RECIPE({
+        recipe: JSON.stringify(recipe_master[i])
+      })
+    );
+  }
+
 }
 
 function onDeleteAll() {
