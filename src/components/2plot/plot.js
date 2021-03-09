@@ -208,6 +208,8 @@ const Plot = ({ recipe, preheat }) => {
         transform={`translate(${0}, ${40})`}
         >
         <defs>
+
+
           <filter id="blur" x="-0.08" y="0">
             <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
             <feOffset dx="0" dy="0" />

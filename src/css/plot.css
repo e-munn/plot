@@ -23,3 +23,20 @@
 .plot-animation-fill {
   transition: fill 420ms ease 5ms;
 }
+
+
+.foreign{
+  display: flex;
+  flex-direction: row;
+  justify-content:
+
+}
+
+
+.fi{
+  width: 50%;
+}
+
+.fa{
+  width: 50%;
+}

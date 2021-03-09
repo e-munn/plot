@@ -44,34 +44,75 @@ const IngredientNode = ({ root, color, dim, a, b, j, focus, setFocus }) => {
   }
 
   var texzt = b.data.ingredient + '<tspan>' + b.data.ing_amt + '</tspan>'
+
   const label = (
-    <text
-      className={'plot-animation-fill plot-text weight-2 existing'}
-      key={'ilabel' + a + b + j}
-      x={ b.data.pX + 10 }
-      y={ b.data.pY + 1 }
-      // style={{filter:'url(#blur)'}}
-      fill={`${statesIng[done].dotColor}`}
-      textAnchor={'start'}
-      fontSize={dim.i.font.size}
-      alignmentBaseline={'middle'}
-      >
-      { b.data.ingredient}
-      <tspan
-        className={'plot-text weight-3'}
-        alignmentBaseline={'middle'}
-        fontSize={dim.i.font.amountSize}
+    <>
+      <g>
+        <defs>
+            <clipPath id={  b.data.pY + '_' + j }>
+              <rect
+                x={ b.data.pX - 20 }
+                y={ b.data.pY - dim.i.font.size/2 - 2}
+                width={ 150 }
+                height={ dim.i.font.size + 6}
+              />
+            </clipPath>
+        </defs>
+      </g>
+      <text
+        clip-path={ 'url(#' + b.data.pY + '_' + j + ')' }
+
+        className={'plot-animation-fill plot-text weight-2 existing'}
+        key={'ilabel' + a + b + j}
+        x={ b.data.pX + 10 }
+        y={ b.data.pY + 1 }
+        // style={{filter:'url(#blur)'}}
         fill={`${statesIng[done].dotColor}`}
+        textAnchor={'start'}
+        fontSize={dim.i.font.size}
+        alignmentBaseline={'middle'}
         >
+        { b.data.ingredient}
+        <tspan
+          className={'plot-text weight-3'}
+          alignmentBaseline={'middle'}
+          fontSize={dim.i.font.amountSize}
+          fill={`${statesIng[done].dotColor}`}
+          >
 
-        { clean(b.data.ing_amt, b.data.ing_unit) }
+          { clean(b.data.ing_amt, b.data.ing_unit) }
 
-
-      </tspan>
-    </text>
+        </tspan>
+      </text>
+    </>
   )
 
+  const label2 = (
+    <>
+    <foreignObject
+      x={ b.data.pX + 10}
+      y={ b.data.pY - 10 }
+      width={ 150 }
+      height={ 20 }
+      >
+        <div
+          className={'foreign'}
+          >
+          <div
+            className={'fi'}
+            >
+            { b.data.ingredient}
+          </div>
+          <div
+            className={'fa'}
+            >
+            { clean(b.data.ing_amt, b.data.ing_unit) }
+          </div>
+        </div>
 
+      </foreignObject>
+    </>
+  )
 
 
 
@@ -136,7 +177,9 @@ const IngredientNode = ({ root, color, dim, a, b, j, focus, setFocus }) => {
       style={{transform: `${ statesIng[done].posXTransform }`}}
       {...handlers}
       >
-      {label}
+      {/* {label} */}
+      {label2}
+
       {dot}
       {swipe}
 

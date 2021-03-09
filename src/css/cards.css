@@ -19,20 +19,25 @@ a:visited {
   max-width: 500px;
   margin: 10px 0px;
   height: 100px;
-  border-radius: 50px;
-  /* border: 2px solid #FFF; */
-  background-color: #FAF9F7;
+  /* border-radius: 50px; */
+  border-radius: 8px;
+
+  background-color: #FCFCFA;
   display: flex;
   justify-content: flex-start;
 
   box-shadow:  2px 2px 4px #edebe5,
-               -2px -2px 4px #fffffd;
+               /* -2px -2px 4px #fffffd; */
+               -1px -1px 2px #edebe5;
+
 }
 
 .card {
-  border-radius: 50px 0px 0px 50px;
+  /* border-radius: 50px 0px 0px 50px; */
+  border-radius: 8px 0px 0px 8px;
 
-  width: 120px;
+
+  width: 100px;
   height: 100px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -54,9 +59,11 @@ a:visited {
 
   font-family: "Gotham SSm A", "Gotham SSm B";
   font-style: normal;
-  font-weight: 500;
-  font-size: 19px;
+  font-weight: 600;
+  font-size: 17px;
   text-decoration: none;
   letter-spacing: 1px;
-  padding: 6px;
+  padding: 2px;
+  padding-left: 6px;
+
 }
