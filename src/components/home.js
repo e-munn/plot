@@ -8,6 +8,8 @@ import recipe_master from '../media/recipes/recipe_master.json';
 import Card from './card.js';
 import '../css/cards.css';
 
+import span from '../media/logo/span.svg'
+
 
 import Amplify, { DataStore, Predicates } from "aws-amplify";
 import { RECIPE } from "../models";
@@ -44,22 +46,28 @@ const Home = () => {
 
   return (
     <>
+    <img src={span}
+      style={{
+        width:'94vw',
+        padding:'8px 3vw'
+      }}
+    />
       <div
         className={'cardbox'}
         >
           { isLoading ? (<div>Loading ...</div>) : (
-              data.map((d, i) =>
-                    <Link
-                      to={'/' + d.path}
-                      >
-                        <Card
-                          d={d}
-                          i={i}
-                        />
-                    </Link>
-                )
+            data.map((d, i) =>
+              <Link
+                to={'/' + d.path}
+                >
+                <Card
+                  d={d}
+                  i={i}
+                />
+              </Link>
             )
-          }
+          )
+        }
       </div>
     </>
 

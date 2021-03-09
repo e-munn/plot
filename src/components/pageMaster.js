@@ -41,7 +41,6 @@ const PageMaster = ({ recipe, aWidth }) => {
           svgHeight={recipeAndHeight[1]}
           preheat={recipeAndHeight[2]}
           thinPage={thinPage}
-
         />
 
         <IngredientList

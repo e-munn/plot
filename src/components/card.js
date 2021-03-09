@@ -28,12 +28,12 @@ const Card = ({d, i}) => {
         backgroundImage: `url(${( imageMap(d.path) )})`
       }}
       >
-      <div className={'card-cover'}>
-          <div
-          className={ 'card-title' }
-          >
-            {d.name}
-        </div>
+    </div>
+    <div className={'card-cover'}>
+      <div
+        className={ 'card-title' }
+        >
+          {d.name}
       </div>
     </div>
   </div>

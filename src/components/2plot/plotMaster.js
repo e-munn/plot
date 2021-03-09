@@ -30,7 +30,7 @@ const PlotMaster = ({ recipePlot, svgHeight, preheat, thinPage }) => {
         >
         PLOT
       </div>
-      <svg width={windowWidth} display={ map(display) } height={ open * (svgHeight + 120) }>
+      <svg style={ thinPage } display={ map(display) } height={ open * (svgHeight + 120) }>
         <Plot
           recipe={recipePlot}
           preheat={preheat}

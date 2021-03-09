@@ -13,6 +13,8 @@ import {
 
 import Home from './components/home.js';
 import PageMaster from './components/pageMaster.js';
+import Backend from './components/backend.js';
+
 import recipe_master from './media/recipes/recipe_master.json';
 import ScrollToTop from './components/scrolltotop.js';
 import dim from './media/theme/dim.json';
@@ -49,8 +51,6 @@ async function onQuery() {
 
 const App = () => {
 
-
-
     const [isLoading, setLoading] = useState(false)
     const [isError, setError] = useState(false)
     const [data, setData] = useState([]);
@@ -75,8 +75,6 @@ const App = () => {
     }, []);
 
 
-
-
   const tempWidth = window.innerWidth
 
   const mobile = (tempWidth < dim.m.cutoff) ? 1 : 0;
@@ -85,17 +83,15 @@ const App = () => {
 
   return (
   <>
-    <div>
-       <input type="button" value="NEW" onClick={onCreate} />
-       <input type="button" value="DELETE ALL" onClick={onDeleteAll} />
-       <input type="button" value="QUERY" onClick={onQuery} />
-     </div>
      {isLoading ? (<div>Loading ...</div>) : (
        <Router>
          <ScrollToTop />
            <Switch>
              <Route exact path={'/'}>
                <Home/>
+             </Route>
+             <Route path={ '/backend'}>
+              <Backend />
              </Route>
                {data.map(d => (
                  <Route path={ '/' + d.path}>
@@ -106,7 +102,6 @@ const App = () => {
                  </Route>
                  ))
                }
-
              </Switch>
          </Router>
          )

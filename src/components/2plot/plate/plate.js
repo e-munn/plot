@@ -12,7 +12,7 @@ const Plate = ({ root }) => {
 
   const plate = (
     <image
-      // className={'plot-animation-fill'}
+      className={'plot-animation-fill'}
       key={'plate'}
       href={ platesvg }
       width={dim.p.d}
@@ -27,7 +27,7 @@ const Plate = ({ root }) => {
 
   const serve = (
     <text
-      // className={'plot-animation-fill'}
+      className={'plot-text weight-1'}
       key={'platetext'}
       x={ root.data.pX + dim.p.d/2 + 5}
       y={ root.data.pY + 2}

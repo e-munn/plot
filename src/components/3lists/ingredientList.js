@@ -95,7 +95,7 @@ ingredientList.forEach((d,i) => {
         INGREDIENTS
       </div>
 
-      <svg width={windowWidth}  display={ map(display) } height={ open * (svgHeight + 110) }>
+      <svg style={ thinPage } display={ map(display) } height={ open * (svgHeight + 110) }>
         <g
           style={{ transform: `translate(${ 0 }px, ${ 35 }px)`  }}>
           { dot }
