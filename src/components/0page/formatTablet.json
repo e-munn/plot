@@ -1,0 +1,53 @@
+{
+  "main": {
+    "cutoff":500,
+    "serveHeight":80,
+    "margin":{
+      "left": 80
+    }
+  },
+  "vessel": {
+    "font":{
+      "size":16,
+      "spacing": 0
+    },
+    "marginBottom": 10,
+    "padding1": 25,
+    "padding2": 8,
+    "shove": 400,
+    "gap": 120,
+    "s": {
+      "width": 30,
+      "stroke":1.5
+    }
+  },
+  "ingredient": {
+    "dotSpace": 22,
+    "font":{
+      "size":17,
+      "amountSize":15,
+      "detailSize":15
+    },
+    "boxNudge": 2,
+    "boxSpace": 18,
+    "boxwidth":{
+      "branch0": "300px",
+      "branch0_1": "160px",
+      "branch1": "110px"
+    },
+    "boxHeight": 20,
+    "height":36,
+    "radius":4
+  },
+  "action": {
+    "font":{
+      "size":13.5
+    },
+    "width":8,
+    "height":35,
+    "amtScale":8
+  },
+  "plate": {
+    "d":28
+  }
+}

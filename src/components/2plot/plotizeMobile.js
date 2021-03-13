@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { min, sum, hierarchy } from 'd3';
-import dim from '../../media/theme/dim.json';
+import { max, min, sum, hierarchy } from 'd3';
 
-export default function plotize(recipe){
+export default function plotizeMobile(recipe, format){
 
   var root = hierarchy(recipe.recipe[0]);
   root.each(
@@ -28,9 +27,9 @@ export default function plotize(recipe){
           d.data.pH = pH
           d.data.pY = pY
         } else {
-          pH = dim.v.padding1 + dim.v.padding2
-          pH += (sum(d.actions) * dim.a.amtScale) + ((d.numIng + d.actions.length) * dim.i.height)
-          pY = d.parent.data.pY + dim.v.gap
+          pH = format.vessel.padding1 + format.vessel.padding2
+          pH += (sum(d.actions) * format.action.amtScale) + ((d.numIng + d.actions.length) * format.ingredient.height)
+          pY = d.parent.data.pY + format.vessel.gap
           pY += pH
           d.data.pY = pY
           d.data.pH = pH
@@ -55,9 +54,9 @@ export default function plotize(recipe){
           d.data.pY = pYMax
         } else {
 
-          pH = dim.v.padding1 + dim.v.padding2
-          pH += (sum(d.actions) * dim.a.amtScale) + ((d.numIng + d.actions.length) * dim.i.height)
-          pY = d.parent.data.pY - dim.v.gap
+          pH = format.vessel.padding1 + format.vessel.padding2
+          pH += (sum(d.actions) * format.action.amtScale) + ((d.numIng + d.actions.length) * format.ingredient.height)
+          pY = d.parent.data.pY - format.vessel.gap
           pY -= pH
           d.data.pY = pY
           d.data.pH = pH
@@ -77,14 +76,14 @@ export default function plotize(recipe){
        }
       else if ('action' in d.data) {
         d.data.stepOrder=i
-        taskCount += dim.i.height
-        pY = d.parent.data.pY + dim.v.padding1
+        taskCount += format.ingredient.height
+        pY = d.parent.data.pY + format.vessel.padding1
         d.data.pY = pY + taskCount
-        taskCount += d.data.action_amt * dim.a.amtScale
+        taskCount += d.data.action_amt * format.action.amtScale
       } else if ('ingredient' in d.data) {
         d.data.stepOrder=i
-        pY = d.parent.data.pY + dim.v.padding1
-        taskCount += dim.i.height
+        pY = d.parent.data.pY + format.vessel.padding1
+        taskCount += format.ingredient.height
         d.data.pY = pY + taskCount
       }
     }
@@ -98,7 +97,7 @@ export default function plotize(recipe){
 
   var preheat = null
 
-  var pX = dim.m.margin.left
+  var pX = format.main.margin.left
   root.each(
     function(d, i){
       if ('vessel' in d.data) {
@@ -106,11 +105,12 @@ export default function plotize(recipe){
           d.data.pX = pX
         } else {
           d.data.stepOrder=i
-
           pX = d.parent.data.pX
           var vesselSibs = d.parent.children.filter(a => ("vessel" in a.data))
           var numLess = vesselSibs.filter(b => (getLeafY(b) < getLeafY(d)) ).length
-          pX += numLess * dim.v.shove
+          d.data.vesselSibs = vesselSibs.length
+          d.data.branch = max([numLess, d.parent.data.branch])
+          pX += numLess * format.vessel.shove
           d.data.pX = pX
         }
       } else {

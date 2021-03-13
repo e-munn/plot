@@ -3,6 +3,9 @@ import { scaleOrdinal } from 'd3'
 import color from '../../media/theme/colors.json';
 import dim from '../../media/theme/dim.json';
 
+import '../../css/page.css';
+
+
 import creamy from '../../media/images/creamy-white-bean-soup-with-spicy-paprika-oil.png'
 import hearty from '../../media/images/hearty-whole-wheat-pasta-with-brussels-sprouts-cheese-and-potato.png'
 import sweet from '../../media/images/sweet-potatoes-with-cilantro-chiles-sauce.png'

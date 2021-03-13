@@ -5,9 +5,8 @@ import { select, easeSin, easeCubicIn, easeCubicOut, transition, scaleOrdinal } 
 import arrowup from '../../media/ui-symbols/arrowup.svg';
 import arrowdown from '../../media/ui-symbols/arrowdown.svg';
 import '../../css/page.css';
-const PlotMaster = ({ recipePlot, svgHeight, preheat, thinPage }) => {
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+const PlotMaster = ({ recipePlot, svgHeight, preheat, thinPage, format, aWidth }) => {
 
   const [open, setOpen] = useState(1);
   const [display, setDisplay] = useState(1);
@@ -34,6 +33,9 @@ const PlotMaster = ({ recipePlot, svgHeight, preheat, thinPage }) => {
         <Plot
           recipe={recipePlot}
           preheat={preheat}
+          format={format}
+          aWidth={aWidth}
+
         />
       </svg>
     </>

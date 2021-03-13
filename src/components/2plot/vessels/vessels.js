@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
-
 import { select, linkVertical } from 'd3';
 import '../../../css/plot.css'
 
 
-const Vessel = ({ a, i, dim, color }) => {
+const Vessel = ({ a, i, format, color }) => {
 
 
 
@@ -12,15 +11,15 @@ const Vessel = ({ a, i, dim, color }) => {
     <rect
       className={'vesselShape'}
       key={'vshape' + i}
-      width={ dim.v.s.width }
+      width={ format.vessel.s.width }
       height={ a.data.pH }
       x={ a.data.pX }
       y={ a.data.pY }
-      transform={`translate(${dim.v.s.width*-.5}, ${0})`}
+      transform={`translate(${format.vessel.s.width*-.5}, ${0})`}
       fill={ `${color.background}` }
       stroke={  `${color.green1}` }
-      strokeWidth={ dim.v.s.stroke }
-      rx={ dim.v.s.width * .5 }
+      strokeWidth={ format.vessel.s.stroke }
+      rx={ format.vessel.s.width * .5 }
       >
     </rect>
   )
@@ -28,16 +27,16 @@ const Vessel = ({ a, i, dim, color }) => {
 
   const label = (
     <text
-      className={'plot-text weight-1'}
+      className={'plot-text'}
       key={'l' + i}
       x={ a.data.pX - 4 }
       y={ a.data.pY + 5 }
       fill={ `${color.green2}` }
-      fontSize={dim.v.font.size}
-      letterSpacing={dim.v.font.spacing}
+      fontSize={format.vessel.font.size}
+      fontWeight={format.main.weight1}
+      letterSpacing={format.vessel.font.spacing}
       alignmentBaseline={'hanging'}
       >
-        {/* {a.data.stepOrder} */}
         {a.data.vessel}
     </text>
   )
@@ -48,8 +47,8 @@ const Vessel = ({ a, i, dim, color }) => {
       key={'lb' + i}
       x={ a.data.pX - 2 }
       y={ a.data.pY + 2 }
-      width={ 12 }
-      height={ dim.v.font.size + 4 }
+      width={ format.vessel.s.width }
+      height={ format.vessel.font.size + 4 }
       fill={ `${color.background}` }
       stroke={ 'none' }
       >
@@ -61,7 +60,6 @@ const Vessel = ({ a, i, dim, color }) => {
     <path
       key={'path' + i}
       id={'path' + i}
-
       stroke={ `${color.transfer}` }
       strokeWidth={3}
       fill={'none'}
@@ -79,17 +77,18 @@ const Vessel = ({ a, i, dim, color }) => {
   const transferText = (
     <text
       key={'textPath' + i}
-      className={'plot-text weight-2'}
+      className={'plot-text'}
       fill={'black'}
       textAnchor={'middle'}
-      style={{transform : 'translate(4px, 0px)', textTransform : 'none'}}
+      style={{transform : 'translate(5px, 0px)', textTransform : 'none'}}
+      fontSize={ format.ingredient.font.size }
       >
-        <textPath
-          href={'#path'+i}
-          startOffset={'50%'}
-          >
-          {a.data.transfer}
-        </textPath>
+      <textPath
+        href={'#path'+i}
+        startOffset={'50%'}
+        >
+        {a.data.transfer}
+      </textPath>
     </text>
   )
 

@@ -1,16 +1,20 @@
 {
-  "m": {
+  "main": {
+    "weight1": 600,
+    "weight2": 500,
+    "weight3": 400,
     "cutoff":500,
     "serveHeight":40,
     "margin":{
       "left": 20
     }
   },
-  "v": {
+  "vessel": {
     "font":{
       "size":16,
       "spacing": 0
     },
+    "labelBackNudge": 4,
     "marginBottom": 10,
     "padding1": 25,
     "padding2": 8,
@@ -21,16 +25,25 @@
       "stroke":1.5
     }
   },
-  "i": {
+  "ingredient": {
+    "dotSpace": 18,
     "font":{
       "size":13.5,
       "amountSize":11,
       "detailSize":12
     },
+    "boxNudge": 0,
+    "boxSpace": 12,
+    "boxwidth":{
+      "branch0": "300px",
+      "branch0_1": "160px",
+      "branch1": "110px"
+    },
+    "boxHeight": 20,
     "height":22,
     "radius":3
   },
-  "a": {
+  "action": {
     "font":{
       "size":13.5
     },
@@ -38,7 +51,8 @@
     "height":35,
     "amtScale":8
   },
-  "p": {
-    "d":28
+  "plate": {
+    "d":28,
+    "fontSize":20
   }
 }

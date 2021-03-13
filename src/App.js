@@ -12,11 +12,11 @@ import {
 } from "react-router-dom";
 
 import Home from './components/home.js';
-import PageMaster from './components/pageMaster.js';
-import Backend from './components/backend.js';
+import PageMaster from './components/0page/pageMaster.js';
+import Backend from './components/misc/backend.js';
 
 import recipe_master from './media/recipes/recipe_master.json';
-import ScrollToTop from './components/scrolltotop.js';
+import ScrollToTop from './components/misc/scrolltotop.js';
 import dim from './media/theme/dim.json';
 
 
@@ -88,7 +88,10 @@ const App = () => {
          <ScrollToTop />
            <Switch>
              <Route exact path={'/'}>
-               <Home/>
+               <Home
+                 isLoading={isLoading}
+                 data={data}
+               />
              </Route>
              <Route path={ '/backend'}>
               <Backend />

@@ -1,24 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { select, max, sum,  hierarchy, linkHorizontal, easeSin, easeCubicIn, easeCubicOut, transition } from 'd3';
+import { scaleLinear, select, max, sum,  hierarchy, linkHorizontal, easeSin, easeCubicIn, easeCubicOut, transition } from 'd3';
 import { useSwipeable } from 'react-swipeable';
 
 import '../../../css/plot.css'
 
 
-const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
+const Action = ({ root, color, format, a, b, j, focus, setFocus}) => {
 
   const [done, setDone] = useState(0);
 
   const statesIng = [
     {
-      "textposX": b.data.pX + 30,
-      "dotposX": b.data.pX - dim.a.width/2 + 20,
       "dotColor": color.orange2,
-      "posXTransform": 'translate(18px, 0px)'
+      "posXTransform": `translate(${ format.ingredient.dotSpace }px, 0px)`
     },
     {
-      "textposX": b.data.pX + 10,
-      "dotposX":  b.data.pX - dim.a.width/2,
       "dotColor": color.orange1,
       "posXTransform": 'translate(0px, 0px)'
     }
@@ -28,14 +24,14 @@ const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
 
   const label = (
     <text
-      className={'plot-animation-fill plot-text weight-2'}
+      className={'plot-animation-fill plot-text'}
       key={'action' + b + j}
       x={ b.data.pX + 10 }
       y={ b.data.pY + 5 }
       fill={`${statesIng[done].dotColor}`}
       textAnchor={'start'}
-      fontSize={dim.a.font.size}
-      fontWeight={dim.a.font.weight}
+      fontSize={format.action.font.size}
+      fontWeight={format.main.weight2}
       alignmentBaseline={'middle'}
       ref={ focusRef }
       onClick={ () => setFocus([focusRef.current, b]) }
@@ -46,18 +42,45 @@ const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
     </text>
   )
 
-  const aHeight = b.data.action_amt * dim.a.amtScale
+
+  const label3 = (
+    <>
+    <foreignObject
+      x={ b.data.pX + format.ingredient.boxSpace }
+      y={ b.data.pY - 5 }
+      width={ (b.parent.data.vesselSibs == 1) ? format.ingredient.boxwidth.branch0 : (b.parent.data.branch == 0) ? format.ingredient.boxwidth.branch0_1 : format.ingredient.boxwidth.branch1}
+      height={ format.ingredient.boxHeight }
+      >
+        <div
+          className={'foreign'}
+          >
+          <div
+            className={'fi plot-animation-fill plot-text existing'}
+            style= {{
+              color:`${statesIng[done].dotColor}`,
+              fontSize: `${ format.ingredient.font.size + 'px'}`,
+              fontWeight: `${ format.main.weight2 }`,
+              width: '100%'
+            }}
+            >
+              { b.data.action}
+          </div>
+        </div>
+      </foreignObject>
+    </>
+  )
+  const aHeight = b.data.action_amt * format.action.amtScale
 
   const shape = (
     <rect
       className={'plot-animation-fill'}
       key={'ashape' + b + j}
-      x={ b.data.pX - dim.a.width/2 }
-      y={ b.data.pY - dim.a.width/2 }
-      width={ dim.a.width }
-      height={ aHeight + dim.a.width }
+      x={ b.data.pX - format.action.width/2 }
+      y={ b.data.pY - format.action.width/2 }
+      width={ format.action.width }
+      height={ aHeight + format.action.width }
       fill={`${statesIng[done].dotColor}`}
-      rx={dim.a.width/2}
+      rx={format.action.width/2}
       >
     </rect>
   )
@@ -80,9 +103,9 @@ const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
     <rect
       key={'aswipe' + a + b + j}
       x={ b.data.pX - 20 }
-      y={ b.data.pY - dim.i.font.size/2 - 2}
-      width={ 90 }
-      height={ aHeight + dim.a.width + 4}
+      y={ b.data.pY - format.ingredient.font.size/2 - 2}
+      width={ 40 }
+      height={ aHeight + format.action.width + 4}
       fill={ 'transparent' }
       // fill={ 'orange' }
       // opacity={ .3 }
@@ -91,18 +114,21 @@ const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
     </rect>
   )
 
+  const textWidthMap = scaleLinear()
+    .domain([4,30])
+    .range([80,200])
+
   const tap = (
     <rect
       key={'aswipe' + a + b + j}
       x={ b.data.pX - 20 }
-      y={ b.data.pY - dim.i.font.size/2 - 2}
-      width={ 90 }
-      height={ dim.i.font.size + 10}
+      y={ b.data.pY - format.ingredient.font.size/2 - 2}
+      width={ textWidthMap(b.data.action.length) }
+      height={ format.ingredient.font.size + 10}
 
       fill={ 'transparent' }
       // fill={ 'orange' }
       // opacity={ .3 }
-
       >
     </rect>
   )
@@ -117,17 +143,15 @@ const Action = ({ root, color, dim, a, b, j, focus, setFocus}) => {
 
   return (
     <g
-      className={'plot-animation-move'}
-      className={'action'}
+      className={'action plot-animation-move'}
       style={{transform: `${ statesIng[done].posXTransform }`}}
       {...handlers}
 
       >
       {shape}
-      {label}
       {swipe}
       {tap}
-
+      {label3}
 
 
       {/* {dot} */}

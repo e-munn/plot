@@ -22,6 +22,7 @@ main {
   justify-content: flex-end;
   align-items: flex-start;
   color: white;
+
 }
 
 .header-title{
@@ -51,7 +52,8 @@ main {
   font-size: 50px;
   font-weight: 700;
   padding: 0px;
-  
+  cursor: 'pointer';
+
   padding-left: 20px;
 
 

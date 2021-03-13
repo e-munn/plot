@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 
-import recipe_master from '../media/recipes/recipe_master.json';
+import recipe_master from '../../media/recipes/recipe_master.json';
 
 import Amplify, { DataStore, Predicates, API, graphqlOperation } from "aws-amplify";
-import { RECIPE } from "../models";
-import awsconfig from "../aws-exports";
+import { RECIPE } from "../../models";
+import awsconfig from "../../aws-exports";
 Amplify.configure(awsconfig);
 
 

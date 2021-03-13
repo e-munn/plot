@@ -1,29 +1,38 @@
 import React, { useState, useEffect, useRef } from "react";
-import '../App.css';
+import '../../App.css';
 
-import '../css/page.css';
+import '../../css/page.css';
+
+import listize from '../3lists/listize.js';
+import plotizeMobile from '../2plot/plotizeMobile.js';
+// import plotizeDesktop from '../2plot/plotizeDesktop.js';
+
+import PlotMaster from '../2plot/plotMaster.js';
+import IngredientList from '../3lists/ingredientList.js';
+import Header from '../1header/header.js';
+
+import dim from '../../media/theme/dim.json';
 
 
-import listize from './3lists/listize.js';
-import plotize from './2plot/plotize.js';
+import formatMobile from './formatMobile.json';
+import formatDesktop from './formatDesktop.json';
 
-import PlotMaster from './2plot/plotMaster.js';
-import IngredientList from './3lists/ingredientList.js';
-import Header from './1header/header.js';
 
-import dim from '../media/theme/dim.json';
 
 
 const PageMaster = ({ recipe, aWidth }) => {
 
   var ingredientList = listize(recipe)
-  var recipeAndHeight = plotize(recipe)
+
 
   const thinPage = {
-    width: `${ '100vw' }`,
-    maxWidth: `${ dim.m.cutoff }px`
+    width: `${ '100vw' }`
+    // maxWidth: `${ dim.m.cutoff }px`
   }
 
+  var format = (aWidth[0]) ? formatMobile : formatDesktop
+
+  var recipeAndHeight = plotizeMobile(recipe, format)
 
   return (
     <main
@@ -36,11 +45,14 @@ const PageMaster = ({ recipe, aWidth }) => {
           aWidth={aWidth}
           thinPage={thinPage}
         />
+
         <PlotMaster
           recipePlot={recipeAndHeight[0]}
           svgHeight={recipeAndHeight[1]}
           preheat={recipeAndHeight[2]}
           thinPage={thinPage}
+          format={format}
+          aWidth={aWidth}
         />
 
         <IngredientList

@@ -5,18 +5,16 @@ import {
  Link
 } from "react-router-dom";
 import recipe_master from '../media/recipes/recipe_master.json';
-import Card from './card.js';
+import Card from './home/card.js';
 import '../css/cards.css';
-
 import span from '../media/logo/span.svg'
-
 
 import Amplify, { DataStore, Predicates } from "aws-amplify";
 import { RECIPE } from "../models";
 import awsconfig from "../aws-exports";
 Amplify.configure(awsconfig);
 
-const Home = () => {
+const Home = (  ) => {
 
 
   const [isLoading, setLoading] = useState(false)
@@ -46,12 +44,12 @@ const Home = () => {
 
   return (
     <>
-    <img src={span}
+    {/* <img src={span}
       style={{
         width:'94vw',
         padding:'8px 3vw'
       }}
-    />
+    /> */}
       <div
         className={'cardbox'}
         >

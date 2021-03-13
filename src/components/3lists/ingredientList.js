@@ -14,21 +14,26 @@ const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 const listDisplay = [];
 
 
+
 const clean = (a, b) => {
   var c = '';
-  if (a == null) {
+  if (!(a == null)) {
+    a = ' - ' + a
+  } else {
     a = ''
   }
+
   if (b == null){
-    b = ''
-  }
-  if ( (a == null) && (b == null) ) {
-  } else {
-    c = ' - ' + a + ' ' + b
-  }
+    c = a
+  } else if ( (a == null) && (b == null) ) {
+      c = 'com'
+    } else {
+      c = a + ' ' + b
+    }
+
+
   return c
 }
-
 
 ingredientList.forEach((d,i) => {
   listDisplay.push(

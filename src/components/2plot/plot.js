@@ -7,121 +7,135 @@ import Action from './actions/actions.js';
 import Plate from './plate/plate.js';
 
 import color from '../../media/theme/colors.json';
-import dim from '../../media/theme/dim.json';
 
-const Plot = ({ recipe, preheat }) => {
+const Plot = ({ recipe, preheat, format, aWidth }) => {
 
   const [focus, setFocus] = useState(false);
   const prevFocus = useRef(false);
+
 
   useEffect(() => {
 
     if(!(focus == false)){
 
         var cur = select(focus[0].parentElement)
+        var curParent = select(focus[0].parentElement.parentElement)
         var all = select(focus[0].parentElement.parentElement).selectAll('g')
 
         var t1 = transition()
-          .duration(180)
+          .duration(80)
           .ease(easeCubicOut)
         var t2 = transition()
-          .duration(1000)
+          .duration(200)
           .ease(easeCubicIn)
 
         all
+
+          .attr('opacity', .6)
           // .attr('filter', 'url(#blur)')
-          .attr('opacity', .5)
+
 
         cur
-          .attr('filter', 'none')
           .attr('opacity', 1)
 
+
+
         var textColor
-        if(cur.attr('class') == 'ingredient'){
+        if(cur.attr('class') == 'ingredient plot-animation-move'){
           var cX = cur.select('circle').attr('cx')
           var cY = cur.select('circle').attr('cy')
           var curX = +cX + 10
           var curY = +cY
           textColor = color.blue2
 
-        } else if(cur.attr('class') == 'action'){
+        } else if(cur.attr('class') == 'action plot-animation-move'){
           var cX = cur.select('rect').attr('x')
           var cY = cur.select('rect').attr('y')
-          var curX = +cX + 10 + dim.i.radius
+          var curX = +cX + 10 + format.ingredient.radius
           var curY = +cY + 8
           textColor = color.orange2
 
         }
 
-        cur.select('.existing')
-          .attr('visibility', 'hidden')
+        cur.select('foreignObject')
+          .style('opacity', 0)
+
+
+        //
+        // var fO = curParent.append('foreignObject')
+        //   .classed('focus', 1)
+        //   .attr('width', '500px')
+        //   .attr('height', '500px')
+        //   .attr('x', 50)
+        //   .attr('y', curY-10)
+        //   .append("xhtml:body")
+        //   .append('div')
+        //   .style('width', '300px')
+        //   .style('height', '120px')
+        //   .style('background-color', 'white')
 
 
 
-        var amt = cur.append('text')
-          .classed('focus', 1)
-          .classed('plot-text', 1)
-          .classed('weight-2', 1)
-          .attr('x', curX)
-          .attr('y', curY)
-          .attr('fill', textColor)
-          .attr('font-size', dim.i.font.detailSize)
-          .attr('alignment-baseline', 'middle')
-          .text( focus[1].data.detail )
+        //
+        // var amt = cur.append('text')
+        //   .classed('focus', 1)
+        //   .classed('plot-text', 1)
+        //   .classed('weight-2', 1)
+        //   .attr('x', curX)
+        //   .attr('y', curY)
+        //   .attr('fill', textColor)
+        //   .attr('font-size', dim.i.font.detailSize)
+        //   .attr('alignment-baseline', 'middle')
+        //   .text( focus[1].data.detail )
 
-        var svgWidth = focus[0].parentElement.parentElement.parentElement
-        svgWidth = select(svgWidth).attr('width')
+
+
+
+
         var svgHeight = focus[0].parentElement.parentElement.parentElement
         svgHeight = select(svgHeight).attr('height')
 
 
-        console.log(cur)
-
-
         var clickOn = focus[0].parentElement
-
-        var svgT = clickOn.parentElement.parentElement
+        var svgT = focus[0].parentElement.parentElement
 
         svgT = select(svgT)
 
-        clickOn = select(clickOn)
+        svgT.selectAll('.focus').remove()
 
-        var clickoff = clickOn.append('rect')
+        var clickoff = svgT.append('rect')
           .classed('focus', 1)
-          .attr('x', -dim.m.margin.left/2)
+          .attr('x', -format.main.margin.left/2)
           .attr('y', 0)
           .attr('width', '100vw')
           .attr('height', +svgHeight)
           .attr('fill', 'transparent')
-          .attr('opacity', 1)
           .on('click', () => {
-            cur.selectAll('.focus').remove()
+            svgT.selectAll('.focus').remove()
             all
               .attr('filter', 'none')
               .attr('opacity', 1)
           })
 
-        clickOn.lower()
+        clickoff.lower()
 
-        amt.raise()
+        // amt.raise()
 
         if (!(prevFocus.current == false)){
           var prev = prevFocus.current
-          prev = prev[0]
           prev = prev.parentElement
-          prev = select(prev)
-          prev.select('.existing').attr('visibility', 'visible')
+          console.log(prev)
 
-          var rem = prev.selectAll('.focus')
-          rem.remove()
+          prev = select(prev)
+          prev = prev.select('foreignObject').style('opacity', 1)
+          // var rem = prev.selectAll('.focus')
+          // rem.remove()
         }
-        prevFocus.current = focus
+        prevFocus.current = focus[0]
 
       }
+
     }, [focus])
-
-
-
 
 
   var root = recipe
@@ -130,6 +144,7 @@ const Plot = ({ recipe, preheat }) => {
   var plate=[(
     <Plate
       root={root}
+      format={format}
     />
   )]
 
@@ -145,7 +160,7 @@ const Plot = ({ recipe, preheat }) => {
       <Vessel
         a={a}
         i={i}
-        dim={dim}
+        format={format}
         color={color}
       />
     )
@@ -157,12 +172,13 @@ const Plot = ({ recipe, preheat }) => {
         ingredientNodes.push(
           <IngredientNode
             color={color}
-            dim={dim}
+            format={format}
             a={a}
             b={b}
             j={j}
             focus={focus}
             setFocus={setFocus}
+            aWidth={aWidth}
           />)
         }
       })
@@ -174,7 +190,7 @@ const Plot = ({ recipe, preheat }) => {
         actionNodes.push(
           <Action
             color={color}
-            dim={dim}
+            format={format}
             a={a}
             b={b}
             j={j}
@@ -203,13 +219,29 @@ const Plot = ({ recipe, preheat }) => {
     )
   })
 
+  var empty = (<></>)
+
+  const clickOff = (
+    <rect
+      x={0}
+      y={0}
+      width={'100%'}
+      height={'100%'}
+      fill={'transparent'}
+      onClick={() => {
+        setFocus([focus[0], empty])
+      }}
+      >
+
+    </rect>
+  )
+
   return (
+    <>
       <g
         transform={`translate(${0}, ${40})`}
         >
         <defs>
-
-
           <filter id="blur" x="-0.08" y="0">
             <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
             <feOffset dx="0" dy="0" />
@@ -220,8 +252,11 @@ const Plot = ({ recipe, preheat }) => {
             <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
           </filter>
         </defs>
+        {/* {clickOff} */}
         {flows}
+        {/* {focus[1]} */}
       </g>
+    </>
   );
 };
 

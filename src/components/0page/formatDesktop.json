@@ -1,0 +1,58 @@
+{
+  "main": {
+    "weight1": 700,
+    "weight2": 600,
+    "weight3": 500,
+    "weight4": 300,
+    "cutoff":500,
+    "serveHeight":120,
+    "margin":{
+      "left": 80
+    }
+  },
+  "vessel": {
+    "font":{
+      "size":22,
+      "spacing": 0
+    },
+    "labelBackNudge": 10,
+    "padding1": 25,
+    "padding2": 8,
+    "shove": 400,
+    "gap": 300,
+    "s": {
+      "width": 28,
+      "stroke": 3
+    }
+  },
+  "ingredient": {
+    "dotSpace": 30,
+    "font":{
+      "size":20,
+      "amountSize":18,
+      "detailSize":15
+    },
+    "boxNudge": -12,
+    "boxSpace": 16,
+    "boxwidth":{
+      "branch0": "500px",
+      "branch0_1": "300px",
+      "branch1": "300px"
+    },
+    "boxHeight": 50,
+    "height":54,
+    "radius":5
+  },
+  "action": {
+    "font":{
+      "size":13.5
+    },
+    "width":10,
+    "height":35,
+    "amtScale":8
+  },
+  "plate": {
+    "d":44,
+    "fontSize":22
+  }
+}
